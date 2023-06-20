@@ -30,10 +30,10 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public Customer getCustomerById(Integer customerId){
-        Customer customer=customerRepository.findCustomerById(customerId);
+    public Customer getCustomerById(Integer customerId) {
+        Customer customer = customerRepository.findCustomerById(customerId);
 
-        if (customer==null){
+        if (customer == null) {
             throw new ApiException("Customer not found");
         }
         return customerRepository.findCustomerById(customerId);
@@ -47,11 +47,11 @@ public class CustomerService {
 //
 //
 //        }
-        User user = new User(null,dto.getUsername(), dto.getPassword(), "CUSTOMER", null,null);
-        String hash= new BCryptPasswordEncoder().encode(user.getPassword());
+        User user = new User(null, dto.getUsername(), dto.getPassword(), "CUSTOMER", null, null);
+        String hash = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(hash);
         userRepository.save(user);
-        Customer customer = new Customer(null, dto.getMail(), dto.getName(), dto.getPhone(), 0,user , null);
+        Customer customer = new Customer(null, dto.getMail(), dto.getName(), dto.getPhone(), 0, user, null);
         customerRepository.save(customer);
     }
 
@@ -72,7 +72,7 @@ public class CustomerService {
 
         }
         user.setUsername(dto.getUsername());
-        String hash= new BCryptPasswordEncoder().encode(dto.getPassword());
+        String hash = new BCryptPasswordEncoder().encode(dto.getPassword());
         user.setPassword(hash);
         oldCustomer.setMail(dto.getMail());
         oldCustomer.setName(dto.getName());
@@ -91,7 +91,7 @@ public class CustomerService {
     }
 
     // جيب كوستمر  id من السكيرتي بدل dto
-    public void makeOrder(Integer customerId,OrderDTO dto) {
+    public void makeOrder(Integer customerId, OrderDTO dto) {
         Customer customer = customerRepository.findCustomerById(customerId);
         if (customer == null) {
             throw new ApiException("customer not found");
@@ -111,7 +111,7 @@ public class CustomerService {
         if (order == null) {
             throw new ApiException("order not found");
         }
-        if (customer_id!=order.getCustomer().getId())
+        if (customer_id != order.getCustomer().getId())
             throw new ApiException("not authorized");
         List<Offer> offers = offerRepository.findOffersByOrder(order);
         if (offers.isEmpty()) {
@@ -125,46 +125,54 @@ public class CustomerService {
 
 
     //after acceptance
-    public String getMyOrderInfo(Integer customerId, Integer orderId){
+    public String getMyOrderInfo(Integer customerId, Integer orderId) {
         Order order = orderRepository.findOrderById(orderId);
-        Customer customer= customerRepository.findCustomerById(customerId);
-        if (order==null)
+        Customer customer = customerRepository.findCustomerById(customerId);
+        if (order == null)
             throw new ApiException("order not found");
         if (order.getOrderStatus().equals("NEW"))
             throw new ApiException("no offer has been accepted yet");
         if (!(order.getCustomer().getId() == customerId))
             throw new ApiException("not authorized");
-        if (order.getOffers().iterator().next().getEstemateddeadline().isBefore(LocalDate.now()) && order.getOrderStatus().equals("ACCEPTED")){
-            return "Hi "+customer.getName()+
-                    "\nOrder ID:"+order.getId()+
-                    "\nOrder Status:"+order.getOrderStatus()+
-                    "\nOrder Creation Date:"+order.getCreatedAt()+
-                    "\nOrder Problem Description:"+order.getProblemdescription()+
-                    "\nNotice!! the order deadline:"+order.getOffers().iterator().next().getEstemateddeadline()+
+        if (order.getOffers().iterator().next().getEstemateddeadline().isBefore(LocalDate.now()) && order.getOrderStatus().equals("ACCEPTED")) {
+            return "Hi " + customer.getName() +
+                    "\nOrder ID:" + order.getId() +
+                    "\nOrder Status:" + order.getOrderStatus() +
+                    "\nOrder Creation Date:" + order.getCreatedAt() +
+                    "\nOrder Problem Description:" + order.getProblemdescription() +
+                    "\nNotice!! the order deadline:" + order.getOffers().iterator().next().getEstemateddeadline() +
+                    "\nYour provider is:" + order.getOffers().iterator().next().getProvider().getName() +
+                    "\nYour provider phone is:" + order.getOffers().iterator().next().getProvider().getPhone() +
                     " has been reached, Customer can reject offer now.";
         }
-        if (order.getOffers().iterator().next().getOfferStatus().equals("FINAL")){
-            return "Hi "+customer.getName()+
-                    "\nOrder ID:"+order.getId()+
-                    "\nOrder Status:final offer has been submitted"+
-                    "\nOrder Creation Date:"+order.getCreatedAt()+
-                    "\nOrder Problem Description:"+order.getProblemdescription()+
-                    "\n*FINAL PRICE:"+order.getOffers().iterator().next().getPrice()+
+        if (order.getOffers().iterator().next().getOfferStatus().equals("FINAL")) {
+            return "Hi " + customer.getName() +
+                    "\nOrder ID:" + order.getId() +
+                    "\nOrder Status:final offer has been submitted" +
+                    "\nOrder Creation Date:" + order.getCreatedAt() +
+                    "\nOrder Problem Description:" + order.getProblemdescription() +
+                    "\n*FINAL PRICE:" + order.getOffers().iterator().next().getPrice() +
+                    "\nYour provider is:" + order.getOffers().iterator().next().getProvider().getName() +
+                    "\nYour provider phone is:" + order.getOffers().iterator().next().getProvider().getPhone() +
                     "\n**NOTE THAT YOU CAN REJECT THE OFFER**";
+
         }
-        return "Hi "+customer.getName()+
-                "\nOrder ID:"+order.getId()+
-                "\nOrder Status:"+order.getOrderStatus()+
-                "\nOrder Creation Date:"+order.getCreatedAt()+
-                "\nOrder Problem Description:"+order.getProblemdescription();
+        return "Hi " + customer.getName() +
+                "\nOrder ID:" + order.getId() +
+                "\nOrder Status:" + order.getOrderStatus() +
+                "\nOrder Creation Date:" + order.getCreatedAt() +
+                "\nOrder Problem Description:" + order.getProblemdescription() +
+                "\nYour provider is:" + order.getOffers().iterator().next().getProvider().getName() +
+                "\nYour provider phone is:" + order.getOffers().iterator().next().getProvider().getPhone();
+
     }
 
     //we need to change offer status to accepted
     //we need to chang order status to binding
-    public void acceptOffer(Integer customer_id,Integer offer_id,Integer orderId) {
+    public void acceptOffer(Integer customer_id, Integer offer_id, Integer orderId) {
         Customer customer = customerRepository.findCustomerById(customer_id);
 
-        if (customer==null){
+        if (customer == null) {
             throw new ApiException("customer not found");
         }
 
@@ -172,7 +180,7 @@ public class CustomerService {
         if (order == null) {
             throw new ApiException("order not found");
         }
-        if (order.getCustomer().getId()!=customer_id)
+        if (order.getCustomer().getId() != customer_id)
             throw new ApiException("not authorized");
 
         Offer offer = offerRepository.findOfferById(offer_id);
@@ -182,13 +190,13 @@ public class CustomerService {
 
 
         }
-        if (offer.getOrder().getId()!=orderId){
+        if (offer.getOrder().getId() != orderId) {
             throw new ApiException("this  offer is for other order");
 
         }
 
         // first offer
-        if (offer.getOfferStatus().equals("FIRST") && order.getOrderStatus().equals("NEW")){
+        if (offer.getOfferStatus().equals("FIRST") && order.getOrderStatus().equals("NEW")) {
             order.setOrderStatus("ACCEPTED");
             offer.setOfferStatus("PENDING");
 
@@ -208,7 +216,6 @@ public class CustomerService {
             }
 
 
-
         }
 
 //final offer
@@ -220,8 +227,6 @@ public class CustomerService {
         }
 
     }
-
-
 
 
 }

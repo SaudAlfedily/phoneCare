@@ -47,9 +47,9 @@ public class DaoTests {
 
     @BeforeEach
     void setUp() {
-        user = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user1 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        provider = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", user, null, null);
+        user = new User(null, "saud", "Saud1234", "CUSTOMER", null, null);
+        user1 = new User(null, "Ali", "Saud1234", "CUSTOMER", null, null);
+        provider = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw",0.0, user, null, null);
         customer = new Customer(null, "saud@gamil.com", "saud", "1420515", 15, user1, null);
         order1=new Order(null,"100054184","NEW", LocalDate.now(),"fesswewdxw",customer,null,null);
         review=new Review(null,"qwqsqwsqs",5,order1,provider);
@@ -69,8 +69,8 @@ public class DaoTests {
     @Test
     public void findUserByIdTEST() {
         userRepository.save(user);
-        User user1 = userRepository.findUserById(user.getId());
-        Assertions.assertThat(user1).isEqualTo(user);
+        User usert = userRepository.findUserById(user.getId());
+        Assertions.assertThat(usert).isEqualTo(user);
     }
 
     @Test

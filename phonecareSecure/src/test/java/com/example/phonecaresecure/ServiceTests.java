@@ -66,17 +66,17 @@ public class ServiceTests {
     @BeforeEach
     void setUp() {
 
-        user1 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user2 = new User(null, "Ali", "1234", "CUSTOMER", null, null);
-        user3 = new User(null, "moh", "1234", "CUSTOMER", null, null);
+        user1 = new User(null, "saud", "Saud1234", "CUSTOMER", null, null);
+        user2 = new User(null, "Ali", "Saud1234", "CUSTOMER", null, null);
+        user3 = new User(null, "moh", "Saud1234", "CUSTOMER", null, null);
         users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
         users.add(user3);
 
-        provider1 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", user1, null, null);
-        provider2 = new Provider(null, "sauda@dsd", "Ali", "01114544", "wqwsqw", user2, null, null);
-        provider3 = new Provider(null, "sauda@dsd", "ibra", "01114544", "wqwsqw", user3, null, null);
+        provider1 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw",0.0, user1, null, null);
+        provider2 = new Provider(null, "sauda@dsd", "Ali", "01114544", "wqwsqw", 0.0,user2, null, null);
+        provider3 = new Provider(null, "sauda@dsd", "ibra", "01114544", "wqwsqw", 0.0,user3, null, null);
         providers = new ArrayList<>();
         providers.add(provider1);
         providers.add(provider2);

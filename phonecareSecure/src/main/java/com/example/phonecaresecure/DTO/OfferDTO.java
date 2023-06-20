@@ -18,4 +18,6 @@ public class OfferDTO {
     private Integer price;
     @FutureOrPresent(message = "Estimated deadline should not be in the past")
     private LocalDate estemateddeadline;
+
+    private String reason;
 }

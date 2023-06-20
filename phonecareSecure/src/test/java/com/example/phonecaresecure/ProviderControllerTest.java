@@ -59,15 +59,15 @@ public class ProviderControllerTest {
 
     @BeforeEach
     void setUp() {
-        user1 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user2 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user3 = new User(null, "saud", "1234", "CUSTOMER", null, null);
+        user1 = new User(null, "saud", "Saud1234", "CUSTOMER", null, null);
+        user2 = new User(null, "Ali", "Saud1234", "CUSTOMER", null, null);
+        user3 = new User(null, "ibra", "Saud1234", "CUSTOMER", null, null);
         users= Arrays.asList(user1);
         userList=Arrays.asList(user2);
 
-        provider1 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", user1, null, null);
-        provider2 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", user2, null, null);
-        provider3 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", user3, null, null);
+        provider1 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw",0.0, user1, null, null);
+        provider2 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw", 0.0,user2, null, null);
+        provider3 = new Provider(null, "sauda@dsd", "saud", "01114544", "wqwsqw",0.0, user3, null, null);
 
         providers= Arrays.asList(provider1);
         providerList=Arrays.asList(provider2);

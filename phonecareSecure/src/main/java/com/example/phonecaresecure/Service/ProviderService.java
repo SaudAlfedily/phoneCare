@@ -164,6 +164,7 @@ public class ProviderService {
             offer.setPrice(offerDTO.getPrice());
             offer.setCreatedAt(LocalDate.now());
             offer.setEstemateddeadline(offerDTO.getEstemateddeadline());
+            offer.setReason(offerDTO.getReason());
             offer.setOfferStatus("FINAL");
             offerRepository.save(offer);
 

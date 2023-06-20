@@ -47,9 +47,9 @@ public class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        user1 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user2 = new User(null, "saud", "1234", "CUSTOMER", null, null);
-        user3 = new User(null, "saud", "1234", "CUSTOMER", null, null);
+        user1 = new User(null, "saud", "Saud1234", "CUSTOMER", null, null);
+        user2 = new User(null, "Ali", "Saud1234", "CUSTOMER", null, null);
+        user3 = new User(null, "ibra", "Saud1234", "CUSTOMER", null, null);
         users= Arrays.asList(user1);
         userList=Arrays.asList(user2);
 
